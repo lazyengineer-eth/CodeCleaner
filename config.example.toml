@@ -1,0 +1,46 @@
+# CodeCleaner Configuration
+# Copy this file to config.toml and fill in your values.
+#
+# Secrets are read from environment variables (never stored in this file):
+#   CODECLEANER_ADO_PAT    — Azure DevOps Personal Access Token
+#   CODECLEANER_GEMINI_KEY — Google Gemini API Key
+
+[azure_devops]
+organization = "https://dev.azure.com/your-org"
+project = "YourProject"
+repository = "your-repo"
+pat_env_var = "CODECLEANER_ADO_PAT"
+api_version = "7.1"
+
+[gemini]
+api_key_env_var = "CODECLEANER_GEMINI_KEY"
+model = "gemini-2.0-flash"
+temperature = 0.2
+max_output_tokens = 8192
+context_budget_pct = 75
+
+[review]
+min_severity = "suggestion"     # error, warning, suggestion, nitpick
+max_comments_per_pr = 25
+include_suggestions = true
+
+[fix]
+create_backup = true
+backup_dir = ".codecleaner_backup"
+auto_stage = true
+
+[performance]
+ado_rate_limit = 10             # Requests per second to Azure DevOps
+gemini_rate_limit_rpm = 60      # Requests per minute to Gemini
+cache_ttl_secs = 300
+max_diff_size_bytes = 524288    # 512 KB — skip larger files
+
+[rules]
+file = "rules.toml"
+auto_learn = true
+min_confidence = 0.7
+
+[logging]
+level = "info"                  # trace, debug, info, warn, error
+file = "codecleaner.log"
+log_to_file = false

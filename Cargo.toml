@@ -1,0 +1,69 @@
+[package]
+name = "codecleaner"
+version = "0.1.0"
+edition = "2021"
+description = "AI-powered code review tool for Azure DevOps using Gemini"
+license = "MIT"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "signal", "fs"] }
+
+# HTTP client
+reqwest = { version = "0.12", features = ["json", "stream", "rustls-tls"], default-features = false }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+
+# CLI
+clap = { version = "4", features = ["derive"] }
+
+# Error handling
+thiserror = "2"
+anyhow = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+
+# Rate limiting
+governor = "0.8"
+
+# Regex (for rule patterns)
+regex = "1"
+
+# Glob matching (for file skip rules)
+globset = "0.4"
+
+# Date/time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Progress display
+indicatif = "0.17"
+
+# Base64 (for PAT encoding)
+base64 = "0.22"
+
+# LRU cache
+lru = "0.12"
+
+# Colored terminal output
+colored = "2"
+
+# Interactive prompts
+dialoguer = "0.11"
+
+# Text diffing
+similar = "2"
+
+# Async streams
+futures = "0.3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true
+codegen-units = 1

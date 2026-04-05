@@ -1,0 +1,94 @@
+# CodeCleaner Review Rules
+# This file grows over time as the tool learns patterns from AI reviews.
+# Manual rules have confidence = 1.0; learned rules start at 0.5.
+
+[meta]
+version = "1.0"
+last_updated = "2026-04-05T00:00:00Z"
+total_reviews = 0
+
+# --- Skip Rules: files matching these globs are skipped entirely ---
+
+[[skip]]
+glob = "**/*.generated.cs"
+reason = "Auto-generated code"
+
+[[skip]]
+glob = "**/node_modules/**"
+reason = "Third-party dependencies"
+
+[[skip]]
+glob = "**/*.min.js"
+reason = "Minified files"
+
+[[skip]]
+glob = "**/*.designer.cs"
+reason = "Visual Studio designer files"
+
+[[skip]]
+glob = "**/bin/**"
+reason = "Build output"
+
+[[skip]]
+glob = "**/obj/**"
+reason = "Build output"
+
+# --- Review Rules ---
+
+[[rule]]
+id = "sec-001"
+name = "Hardcoded credentials"
+category = "security"
+severity = "error"
+enabled = true
+source = "manual"
+confidence = 1.0
+hit_count = 0
+message_template = "Potential hardcoded credential detected: `{match}`"
+[rule.pattern]
+type = "regex"
+expression = '(?i)(password|secret|api_key|token)\s*=\s*"[^"]+"'
+
+[[rule]]
+id = "sec-002"
+name = "SQL injection risk"
+category = "security"
+severity = "error"
+enabled = true
+source = "manual"
+confidence = 1.0
+hit_count = 0
+message_template = "Possible SQL injection — use parameterized queries"
+[rule.pattern]
+type = "regex"
+expression = '(?i)(execute|query)\s*\(\s*[f"''].*\{.*\}'
+
+[[rule]]
+id = "perf-001"
+name = "Console.WriteLine in production"
+category = "performance"
+severity = "warning"
+enabled = true
+source = "manual"
+confidence = 1.0
+hit_count = 0
+message_template = "Console.WriteLine found — use structured logging instead"
+[rule.pattern]
+type = "content_contains"
+text = "Console.WriteLine"
+
+[[rule]]
+id = "style-001"
+name = "TODO without ticket"
+category = "style"
+severity = "suggestion"
+enabled = true
+source = "manual"
+confidence = 1.0
+hit_count = 0
+message_template = "TODO comment without a ticket reference"
+[rule.pattern]
+type = "regex"
+expression = '//\s*TODO(?!\s*[\[(])'
+
+# Learned rules will be automatically appended below this line.

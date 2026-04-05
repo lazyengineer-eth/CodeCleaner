@@ -1,0 +1,21 @@
+# Rust build artifacts
+/target/
+Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# CodeCleaner runtime files
+codecleaner.log
+.codecleaner_backup/
+config.toml
+
+# Tool config
+.ai/
